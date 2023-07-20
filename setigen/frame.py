@@ -796,8 +796,7 @@ class Frame(object):
                              axis=2)
 
         if not isinstance(self.data, np.float64):
-            warnings.warn("Input data type differs from signal data type, conversion to be executed from input data: " +
-                          str(type(self.data)) + " to " + str(type(signal)))
+            warnings.warn("frame.py, add_signal()_input data type differs from signal data type, conversion to be executed on input data")
             self.data = self.data.astype(np.float64)
         
         self.data[:, bounding_min:bounding_max] += signal
