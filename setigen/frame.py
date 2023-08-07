@@ -161,6 +161,7 @@ class Frame(object):
             self.data = waterfall_utils.get_data(self.waterfall)
             if not self.ascending:
                 self.data = self.data[:, ::-1]
+                self.data = np.fliplr(self.data)
         else:
             raise ValueError(f'Frame must be provided dimensions or an '
                              f'existing filterbank file.')
