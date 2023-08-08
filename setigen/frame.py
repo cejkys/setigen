@@ -2,6 +2,7 @@ import sys
 import os.path
 import copy
 import time
+import warnings
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -160,6 +161,7 @@ class Frame(object):
             self.data = waterfall_utils.get_data(self.waterfall)
             if not self.ascending:
                 self.data = self.data[:, ::-1]
+                self.data = np.fliplr(self.data)
         else:
             raise ValueError(f'Frame must be provided dimensions or an '
                              f'existing filterbank file.')
@@ -794,6 +796,10 @@ class Frame(object):
                                                  f_subsamples)),
                              axis=2)
 
+        if not isinstance(self.data, np.float64):
+            warnings.warn("frame.py, add_signal()_input data type differs from signal data type, conversion to be executed on input data")
+            self.data = self.data.astype(np.float64)
+        
         self.data[:, bounding_min:bounding_max] += signal
 
         signal_frame = np.zeros(self.shape)
